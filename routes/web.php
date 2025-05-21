@@ -5,19 +5,88 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
+// Dashboard Route (no auth required)
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
+// Marketing Routes
+Route::get('/', function () {
+    return Inertia::render('Marketing/Home');
+})->name('home');
+
+Route::get('/about', function () {
+    return Inertia::render('Marketing/About');
+})->name('about');
+
+Route::get('/brand-ambassador', function () {
+    return Inertia::render('Marketing/BrandAmbassador');
+})->name('brand-ambassador');
+
+Route::get('/reviews', function () {
+    return Inertia::render('Marketing/Reviews');
+})->name('reviews');
+
+Route::get('/services', function () {
+    return Inertia::render('Marketing/Services');
+})->name('services');
+
+Route::get('/contact', function () {
+    return Inertia::render('Marketing/Contact');
+})->name('contact');
+
+Route::get('/signup', function () {
+    return Inertia::render('Marketing/Signup');
+})->name('signup');
+
+Route::get('/privacy', function () {
+    return Inertia::render('Marketing/Privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return Inertia::render('Marketing/Terms');
+})->name('terms');
+
+Route::get('/fulfillment', function () {
+    return Inertia::render('Marketing/Fulfillment');
+})->name('fulfillment');
+
+Route::get('/custom-register', function () {
+    return Inertia::render('Register');
+})->name('custom.register');
+
+// Admin Routes
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->name('admin.dashboard');
+    
+    Route::get('/contacts', function () {
+        return Inertia::render('Admin/Contacts');
+    })->name('admin.contacts');
+    
+    Route::get('/campaigns', function () {
+        return Inertia::render('Admin/Campaigns');
+    })->name('admin.campaigns');
+    
+    Route::get('/automations', function () {
+        return Inertia::render('Admin/Automations');
+    })->name('admin.automations');
+    
+    Route::get('/website', function () {
+        return Inertia::render('Admin/Website');
+    })->name('admin.website');
+    
+    Route::get('/analytics', function () {
+        return Inertia::render('Admin/Analytics');
+    })->name('admin.analytics');
+    
+    Route::get('/settings', function () {
+        return Inertia::render('Admin/Settings');
+    })->name('admin.settings');
+});
+
+// User Profile Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
