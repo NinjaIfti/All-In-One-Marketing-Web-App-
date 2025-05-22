@@ -199,32 +199,36 @@ const submit = () => {
                   <span class="text-sm text-gray-600">I agree to the</span>
                   <a href="#" class="text-sm text-orange-500 hover:text-orange-600 mx-1">Terms of Service</a>
                   <span class="text-sm text-gray-600">and</span>
-                  <a href="#" class="text-sm text-orange-500 hover:text-orange-600 ml-1">Privacy Policy</a>
-                  <p v-if="form.errors.terms || errors.terms" class="mt-1 text-sm text-red-600">{{ form.errors.terms || errors.terms }}</p>
+                  <a href="#" class="text-sm text-orange-500 hover:text-orange-600 mx-1">Privacy Policy</a>
                 </div>
               </label>
+              <p v-if="form.errors.terms || errors.terms" class="mt-1 text-sm text-red-600">{{ form.errors.terms || errors.terms }}</p>
             </div>
             
-            <!-- Register Button -->
+            <!-- Submit Button -->
             <button 
-              type="submit" 
-              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"
+              type="submit"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200"
               :disabled="isSubmitting"
             >
-              <svg v-if="isSubmitting" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              {{ isSubmitting ? 'Creating Account...' : 'Create Account' }}
+              <span v-if="isSubmitting">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Processing...
+              </span>
+              <span v-else>Create Account</span>
             </button>
             
-            <!-- Alternate SignUp Methods -->
+            <!-- Or Sign Up With -->
             <div class="my-6 flex items-center">
               <div class="flex-1 border-t border-gray-300"></div>
               <div class="px-3 text-sm text-gray-500">Or sign up with</div>
               <div class="flex-1 border-t border-gray-300"></div>
             </div>
             
+            <!-- Social Logins -->
             <div class="grid grid-cols-2 gap-4">
               <button type="button" class="flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-lg hover:bg-gray-50">
                 <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -244,7 +248,7 @@ const submit = () => {
             </div>
           </form>
           
-          <!-- Login Link -->
+          <!-- Sign In Link -->
           <div class="text-center mt-8">
             <p class="text-gray-600 text-sm">
               Already have an account?
@@ -254,16 +258,6 @@ const submit = () => {
             </p>
           </div>
         </div>
-      </div>
-      
-      <!-- Security Notice -->
-      <div class="text-center mt-6">
-        <p class="flex items-center justify-center text-xs text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-          Secure signup. Your information is encrypted and secured
-        </p>
       </div>
     </div>
   </AuthLayout>
@@ -293,16 +287,4 @@ const submit = () => {
 .hover\:bg-orange-600:hover {
   background-color: #ea580c;
 }
-
-.hover\:text-orange-600:hover {
-  color: #ea580c;
-}
-
-.focus\:ring-orange-500:focus {
-  --tw-ring-color: #f97316;
-}
-
-.focus\:border-orange-500:focus {
-  border-color: #f97316;
-}
-</style>
+</style> 

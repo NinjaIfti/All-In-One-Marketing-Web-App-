@@ -1,4 +1,4 @@
-# All In One Marketing Web App
+# PB&J Solutions Web App
 
 ## Project Overview
 This project is a modern web application built with Laravel, Inertia.js, and Vue.js. It replicates the functionality and design of allinonemarketing.com, providing an all-in-one marketing solution with CRM capabilities, email automation, landing pages, and more.
