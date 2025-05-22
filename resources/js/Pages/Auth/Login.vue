@@ -55,7 +55,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head title="Login" />
+  <Head title="Login | PB&J Solutions" />
 
   <AuthLayout>
     <div class="w-full max-w-md mx-auto">
@@ -63,7 +63,8 @@ const submit = () => {
         <div class="p-8">
           <!-- Header -->
           <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-navy-900">Welcome Back</h1>
+            <img class="h-12 mx-auto mb-4" src="/images/logo.png" alt="PB&J Solutions">
+            <h1 class="text-2xl font-bold text-purple-900">Welcome Back</h1>
             <p class="text-gray-600 mt-2">Sign in to your account to continue</p>
           </div>
           
@@ -77,7 +78,7 @@ const submit = () => {
                 type="email" 
                 v-model="form.email" 
                 autocomplete="email"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 :class="{'border-red-500': form.errors.email || errors.email}"
               />
               <p v-if="form.errors.email || errors.email" class="mt-1 text-sm text-red-600">{{ form.errors.email || errors.email }}</p>
@@ -87,7 +88,7 @@ const submit = () => {
             <div class="mb-6">
               <div class="flex justify-between items-center mb-1">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <Link :href="route('password.request')" class="text-sm text-orange-500 hover:text-orange-600">
+                <Link :href="route('password.request')" class="text-sm text-purple-600 hover:text-purple-700">
                   Forgot Password?
                 </Link>
               </div>
@@ -96,7 +97,7 @@ const submit = () => {
                 type="password" 
                 v-model="form.password" 
                 autocomplete="current-password"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 :class="{'border-red-500': form.errors.password || errors.password}"
               />
               <p v-if="form.errors.password || errors.password" class="mt-1 text-sm text-red-600">{{ form.errors.password || errors.password }}</p>
@@ -108,19 +109,27 @@ const submit = () => {
                 <input 
                   type="checkbox" 
                   v-model="form.remember" 
-                  class="rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+                  class="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                 />
                 <span class="ml-2 text-sm text-gray-600">Remember me</span>
               </label>
             </div>
             
-            <!-- Go to Dashboard Button -->
-            <Link 
-              :href="route('dashboard')" 
-              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"
+            <!-- Login Button -->
+            <button 
+              type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"
+              :disabled="isSubmitting"
             >
-              Go to Dashboard
-            </Link>
+              <span v-if="isSubmitting">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Processing...
+              </span>
+              <span v-else>Sign In</span>
+            </button>
             
             <!-- Alternate SignIn Methods -->
             <div class="my-6 flex items-center">
@@ -152,7 +161,7 @@ const submit = () => {
           <div class="text-center mt-8">
             <p class="text-gray-600 text-sm">
               Don't have an account?
-              <Link :href="route('register')" class="text-orange-500 hover:text-orange-600 font-medium">
+              <Link :href="route('pbj.solutions')" class="text-purple-600 hover:text-purple-700 font-medium">
                 Sign up
               </Link>
             </p>
@@ -174,27 +183,47 @@ const submit = () => {
 </template>
 
 <style scoped>
-.text-navy-900 {
-  color: #0a1933;
+.text-purple-500 {
+  color: #8b5cf6;
 }
 
-.text-orange-500 {
-  color: #f97316;
+.text-purple-600 {
+  color: #7c3aed;
 }
 
-.text-orange-600 {
-  color: #ea580c;
+.text-purple-700 {
+  color: #6d28d9;
 }
 
-.bg-orange-500 {
-  background-color: #f97316;
+.text-purple-900 {
+  color: #4c1d95;
 }
 
-.bg-orange-600 {
-  background-color: #ea580c;
+.bg-purple-500 {
+  background-color: #8b5cf6;
 }
 
-.hover\:bg-orange-600:hover {
-  background-color: #ea580c;
+.bg-purple-600 {
+  background-color: #7c3aed;
+}
+
+.bg-purple-700 {
+  background-color: #6d28d9;
+}
+
+.focus\:ring-purple-500:focus {
+  --tw-ring-color: #8b5cf6;
+}
+
+.focus\:border-purple-500:focus {
+  border-color: #8b5cf6;
+}
+
+.hover\:text-purple-700:hover {
+  color: #6d28d9;
+}
+
+.hover\:bg-purple-700:hover {
+  background-color: #6d28d9;
 }
 </style>

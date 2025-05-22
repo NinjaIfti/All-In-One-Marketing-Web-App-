@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80">
+  <!-- Background shapes -->
+  <path d="M30,20 Q40,10 50,20 L50,50 Q40,60 30,50 Z" fill="#8b5cf6" />
+  <path d="M55,20 Q65,10 75,20 L75,50 Q65,60 55,50 Z" fill="#6d28d9" />
+  <path d="M80,20 Q90,10 100,20 L100,50 Q90,60 80,50 Z" fill="#4c1d95" />
+  
+  <!-- Text -->
+  <text x="110" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#4c1d95">PB&J</text>
+  <text x="110" y="60" font-family="Arial, sans-serif" font-size="16" fill="#6d28d9">Solutions</text>
+</svg> 

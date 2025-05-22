@@ -5,10 +5,17 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Dashboard Route (no auth required)
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// Landing Page for PB&J Solutions
+Route::get('/pbj-solutions', function () {
+    return Inertia::render('Auth/Register');
+})->name('pbj.solutions');
+
+// Public access to admin dashboard with a simple component
+Route::get('/admin/dashboard', function () {
+    return Inertia::render('Admin/Dashboard', [
+        'testVar' => 'This is a test variable to ensure the component loads'
+    ]);
+})->name('admin.dashboard');
 
 // Marketing Routes
 Route::get('/', function () {
@@ -55,12 +62,8 @@ Route::get('/custom-register', function () {
     return Inertia::render('Register');
 })->name('custom.register');
 
-// Admin Routes
+// Admin Routes (protected)
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Admin/Dashboard');
-    })->name('admin.dashboard');
-    
     Route::get('/contacts', function () {
         return Inertia::render('Admin/Contacts');
     })->name('admin.contacts');

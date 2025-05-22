@@ -6,8 +6,8 @@
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center">
               <Link :href="route('home')" class="flex items-center">
-                <img class="h-12 w-auto" src="/images/logo.png" alt="All In One Marketing Logo">
-                <span class="ml-3 text-navy-900 font-bold text-xl hidden md:inline-block">All In One Marketing</span>
+                <img class="h-12 w-auto" src="/images/logo.png" alt="PB&J Solutions Logo">
+                <span class="ml-3 text-purple-900 font-bold text-xl hidden md:inline-block">PB&J Solutions</span>
               </Link>
             </div>
           </div>
@@ -18,8 +18,8 @@
               v-for="(item, index) in navItems" 
               :key="index" 
               :href="item.route" 
-              class="text-navy-900 hover:text-orange-500 px-3 py-2 font-medium transition duration-150"
-              :class="{'text-orange-500 font-semibold': item.active}"
+              class="text-purple-900 hover:text-purple-600 px-3 py-2 font-medium transition duration-150"
+              :class="{'text-purple-600 font-semibold': item.active}"
             >
               {{ item.name }}
             </Link>
@@ -29,13 +29,13 @@
           <div class="flex items-center space-x-2">
             <Link 
               :href="route('login')" 
-              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-navy-900 bg-white hover:bg-gray-100 transition duration-150"
+              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-gray-100 transition duration-150"
             >
               Login
             </Link>
             <Link 
-              :href="route('custom.register')" 
-              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 transition duration-150"
+              :href="route('pbj.solutions')" 
+              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150"
             >
               Sign Up Now
             </Link>
@@ -46,7 +46,7 @@
             <button 
               type="button"
               @click="mobileMenuOpen = !mobileMenuOpen"
-              class="inline-flex items-center justify-center p-2 rounded-md text-navy-900 hover:text-orange-500 hover:bg-gray-100"
+              class="inline-flex items-center justify-center p-2 rounded-md text-purple-900 hover:text-purple-600 hover:bg-gray-100"
             >
               <svg 
                 class="block h-6 w-6" 
@@ -84,19 +84,19 @@
             :key="index" 
             :href="item.route" 
             class="block px-3 py-2 rounded-md text-base font-medium"
-            :class="item.active ? 'text-orange-500 bg-gray-50' : 'text-navy-900 hover:bg-gray-50 hover:text-orange-500'"
+            :class="item.active ? 'text-purple-600 bg-gray-50' : 'text-purple-900 hover:bg-gray-50 hover:text-purple-600'"
           >
             {{ item.name }}
           </Link>
           <Link 
             :href="route('login')" 
-            class="block px-3 py-2 rounded-md text-base font-medium text-navy-900 hover:bg-gray-50 hover:text-orange-500"
+            class="block px-3 py-2 rounded-md text-base font-medium text-purple-900 hover:bg-gray-50 hover:text-purple-600"
           >
             Login
           </Link>
           <Link 
-            :href="route('custom.register')" 
-            class="block px-3 py-2 rounded-md text-base font-medium text-white bg-orange-500 hover:bg-orange-600 mt-2"
+            :href="route('pbj.solutions')" 
+            class="block px-3 py-2 rounded-md text-base font-medium text-white bg-purple-600 hover:bg-purple-700 mt-2"
           >
             Sign Up Now
           </Link>
@@ -126,27 +126,27 @@
   </script>
   
   <style scoped>
-  .text-navy-900 {
-    color: #0a1933;
+  .text-purple-600 {
+    color: #7c3aed;
   }
   
-  .text-orange-500 {
-    color: #f97316;
+  .text-purple-900 {
+    color: #4c1d95;
   }
   
-  .bg-orange-500 {
-    background-color: #f97316;
+  .bg-purple-600 {
+    background-color: #7c3aed;
   }
   
-  .bg-orange-600 {
-    background-color: #ea580c;
+  .bg-purple-700 {
+    background-color: #6d28d9;
   }
   
-  .hover\:text-orange-500:hover {
-    color: #f97316;
+  .hover\:text-purple-600:hover {
+    color: #7c3aed;
   }
   
-  .hover\:bg-orange-600:hover {
-    background-color: #ea580c;
+  .hover\:bg-purple-700:hover {
+    background-color: #6d28d9;
   }
   </style>
