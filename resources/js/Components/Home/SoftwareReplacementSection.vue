@@ -1,6 +1,24 @@
 <template>
-    <section class="bg-gray-50 py-16">
-      <div class="container mx-auto px-4">
+    <section class="bg-[#f8f5fc] py-20 relative overflow-hidden">
+      <!-- Decorative elements -->
+      <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#e2d2f4] opacity-50 blur-3xl"></div>
+      <div class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[#c9b3e3] opacity-30 blur-3xl"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-12">
+          <div class="inline-block mb-4">
+            <div class="h-1 w-12 bg-[#a67c5b] inline-block mr-2"></div>
+            <span class="text-[#5b4b8a] uppercase font-bold tracking-wider text-sm">All-in-One Solution</span>
+            <div class="h-1 w-12 bg-[#a67c5b] inline-block ml-2"></div>
+          </div>
+          <h2 class="text-3xl lg:text-4xl font-bold text-[#1e0933] mb-4">
+            Replaces <span class="text-[#a67c5b] font-black">All Of These Softwares</span>
+          </h2>
+          <p class="text-lg text-[#2f1652] max-w-3xl mx-auto mb-12">
+            Manage every aspect of your business with All In One Marketing Software. We replace every marketing tool in one platform and even include pre-made templates to get started immediately.
+          </p>
+        </div>
+        
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <!-- Left Content -->
           <div class="space-y-6">

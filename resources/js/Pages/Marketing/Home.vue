@@ -5,9 +5,7 @@ import HeroSection from '@/Components/Home/HeroSection.vue';
 import AsSeenOnSection from '@/Components/Home/AsSeenOnSection.vue';
 import VideoTestimonialSection from '@/Components/Home/VideoTestimonialSection.vue';
 import SoftwareReplacementSection from '@/Components/Home/SoftwareReplacementSection.vue';
-import SupportSection from '@/Components/Home/SupportSection.vue';
-import AutomationSection from '@/Components/Home/AutomationSection.vue';
-import FeaturesSection from '@/Components/Home/FeaturesSection.vue';
+import PricingSection from '@/Components/Home/PricingSection.vue';
 import ServicesSection from '@/Components/Home/ServicesSection.vue';
 import StickyBottomCTA from '@/Components/Home/StickyBottomCTA.vue';
 </script>
@@ -28,15 +26,9 @@ import StickyBottomCTA from '@/Components/Home/StickyBottomCTA.vue';
     <!-- Software Replacement Section -->
     <SoftwareReplacementSection />
     
-    <!-- 24/7 Support Section -->
-    <SupportSection />
-    
-    <!-- Automation Features -->
-    <AutomationSection />
-    
-    <!-- All Features Grid -->
-    <FeaturesSection />
-    
+    <!-- Pricing Section -->
+    <PricingSection />
+      
     <!-- Additional Services -->
     <ServicesSection />
     
