@@ -172,7 +172,7 @@
     }
   });
   
-  // Add logout functionality
+  // Use Inertia's router.post for proper CSRF handling
   const logout = () => {
     router.post(route('logout'));
   };

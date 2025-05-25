@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage, router } from '@inertiajs/vue3';
 
 const navigation = [
   { name: 'Dashboard', href: route('admin.dashboard'), icon: 'dashboard' },
@@ -55,7 +55,7 @@ const getNavIcon = (iconType) => {
 };
 
 const logout = () => {
-  document.getElementById('logout-form').submit();
+  router.post(route('logout'));
 };
 </script>
 
@@ -170,9 +170,6 @@ const logout = () => {
                 <Link :href="route('profile.edit')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</Link>
                 <div class="border-t border-gray-100"></div>
                 <button @click="logout" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
-                <form id="logout-form" :action="route('logout')" method="POST" class="hidden">
-                  <input type="hidden" name="_token" :value="$page.props.csrf_token">
-                </form>
               </div>
             </div>
           </div>

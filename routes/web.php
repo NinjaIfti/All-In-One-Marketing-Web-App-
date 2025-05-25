@@ -58,39 +58,39 @@ Route::get('/custom-register', function () {
 // User Routes (protected)
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('User/Dashboard', ['user' => auth()->user()]);
+        return Inertia::render('user/Dashboard', ['user' => auth()->user()]);
     })->name('user.dashboard');
     
     Route::get('/campaigns', function () {
-        return Inertia::render('User/Campaigns');
+        return Inertia::render('user/Campaigns');
     })->name('user.campaigns');
     
     Route::get('/campaigns/create', function () {
-        return Inertia::render('User/CreateCampaign');
+        return Inertia::render('user/CreateCampaign');
     })->name('user.campaigns.create');
     
     Route::get('/contacts', function () {
-        return Inertia::render('User/Contacts');
+        return Inertia::render('user/Contacts');
     })->name('user.contacts');
     
     Route::get('/analytics', function () {
-        return Inertia::render('User/Analytics');
+        return Inertia::render('user/Analytics');
     })->name('user.analytics');
     
     Route::get('/automation', function () {
-        return Inertia::render('User/Automation');
+        return Inertia::render('user/Automation');
     })->name('user.automation');
     
     Route::get('/settings', function () {
-        return Inertia::render('User/Settings');
+        return Inertia::render('user/Settings');
     })->name('user.settings');
     
     Route::get('/support', function () {
-        return Inertia::render('User/Support');
+        return Inertia::render('user/Support');
     })->name('user.support');
     
     Route::get('/resources', function () {
-        return Inertia::render('User/Resources');
+        return Inertia::render('user/Resources');
     })->name('user.resources');
 });
 
