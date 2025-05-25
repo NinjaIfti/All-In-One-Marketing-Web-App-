@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import AdminLayout from '@/Layouts/admin/AdminLayout.vue';
+import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
 import { ref, onMounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
