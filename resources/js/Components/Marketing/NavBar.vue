@@ -27,18 +27,43 @@
             
           <!-- CTA Button -->
           <div class="flex items-center space-x-2">
-            <Link 
-              :href="route('login')" 
-              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-gray-100 transition duration-150"
-            >
-              Login
-            </Link>
-            <Link 
-              :href="route('pbj.solutions')" 
-              class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150"
-            >
-              Sign Up Now
-            </Link>
+            <!-- Show these buttons only for guests -->
+            <template v-if="!$page.props.auth.user">
+              <Link 
+                :href="route('login')" 
+                class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-gray-100 transition duration-150"
+              >
+                Login
+              </Link>
+              <Link 
+                :href="route('pbj.solutions')" 
+                class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150"
+              >
+                Sign Up Now
+              </Link>
+            </template>
+            
+            <!-- Show these options for authenticated users -->
+            <template v-else>
+              <Link 
+                :href="$page.props.auth.user.is_admin ? route('admin.dashboard') : route('user.dashboard')" 
+                class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-gray-100 transition duration-150"
+              >
+                Dashboard
+              </Link>
+              <Link 
+                :href="route('profile.edit')" 
+                class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150"
+              >
+                My Profile
+              </Link>
+              <button
+                @click="logout"
+                class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-gray-600 hover:text-gray-800 transition duration-150"
+              >
+                Logout
+              </button>
+            </template>
           </div>
             
           <!-- Mobile menu button -->
@@ -88,18 +113,41 @@
           >
             {{ item.name }}
           </Link>
-          <Link 
-            :href="route('login')" 
-            class="block px-3 py-2 rounded-md text-base font-medium text-purple-900 hover:bg-gray-50 hover:text-purple-600"
-          >
-            Login
-          </Link>
-          <Link 
-            :href="route('pbj.solutions')" 
-            class="block px-3 py-2 rounded-md text-base font-medium text-white bg-purple-600 hover:bg-purple-700 mt-2"
-          >
-            Sign Up Now
-          </Link>
+          
+          <!-- Mobile menu guest links -->
+          <template v-if="!$page.props.auth.user">
+            <Link 
+              :href="route('login')" 
+              class="block px-3 py-2 rounded-md text-base font-medium text-purple-900 hover:bg-gray-50 hover:text-purple-600"
+            >
+              Login
+            </Link>
+            <Link 
+              :href="route('pbj.solutions')" 
+              class="block px-3 py-2 rounded-md text-base font-medium text-white bg-purple-600 hover:bg-purple-700 mt-2"
+            >
+              Sign Up Now
+            </Link>
+          </template>
+          
+          <!-- Mobile menu authenticated user links -->
+          <template v-else>
+            <Link 
+              :href="$page.props.auth.user.is_admin ? route('admin.dashboard') : route('user.dashboard')" 
+              class="block px-3 py-2 rounded-md text-base font-medium text-purple-900 hover:bg-gray-50 hover:text-purple-600"
+            >
+              Dashboard
+            </Link>
+            <Link 
+              :href="route('profile.edit')" 
+              class="block px-3 py-2 rounded-md text-base font-medium text-white bg-purple-600 hover:bg-purple-700 mt-2"
+            >
+              My Profile
+            </Link>
+            <button @click="logout" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-purple-900 hover:bg-gray-50 hover:text-purple-600 mt-2">
+              Logout
+            </button>
+          </template>
         </div>
       </div>
     </nav>
@@ -107,7 +155,7 @@
   
   <script setup>
   import { ref } from 'vue';
-  import { Link } from '@inertiajs/vue3';
+  import { Link, usePage, router } from '@inertiajs/vue3';
   
   const mobileMenuOpen = ref(false);
   
@@ -123,6 +171,11 @@
       ]
     }
   });
+  
+  // Add logout functionality
+  const logout = () => {
+    router.post(route('logout'));
+  };
   </script>
   
   <style scoped>

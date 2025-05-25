@@ -10,14 +10,7 @@ Route::get('/pbj-solutions', function () {
     return Inertia::render('Auth/Register');
 })->name('pbj.solutions');
 
-// Public access to admin dashboard with a simple component
-Route::get('/admin/dashboard', function () {
-    return Inertia::render('Admin/Dashboard', [
-        'testVar' => 'This is a test variable to ensure the component loads'
-    ]);
-})->name('admin.dashboard');
-
-// Marketing Routes
+// Public access routes
 Route::get('/', function () {
     return Inertia::render('Marketing/Home');
 })->name('home');
@@ -62,8 +55,51 @@ Route::get('/custom-register', function () {
     return Inertia::render('Register');
 })->name('custom.register');
 
+// User Routes (protected)
+Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('User/Dashboard', ['user' => auth()->user()]);
+    })->name('user.dashboard');
+    
+    Route::get('/campaigns', function () {
+        return Inertia::render('User/Campaigns');
+    })->name('user.campaigns');
+    
+    Route::get('/campaigns/create', function () {
+        return Inertia::render('User/CreateCampaign');
+    })->name('user.campaigns.create');
+    
+    Route::get('/contacts', function () {
+        return Inertia::render('User/Contacts');
+    })->name('user.contacts');
+    
+    Route::get('/analytics', function () {
+        return Inertia::render('User/Analytics');
+    })->name('user.analytics');
+    
+    Route::get('/automation', function () {
+        return Inertia::render('User/Automation');
+    })->name('user.automation');
+    
+    Route::get('/settings', function () {
+        return Inertia::render('User/Settings');
+    })->name('user.settings');
+    
+    Route::get('/support', function () {
+        return Inertia::render('User/Support');
+    })->name('user.support');
+    
+    Route::get('/resources', function () {
+        return Inertia::render('User/Resources');
+    })->name('user.resources');
+});
+
 // Admin Routes (protected)
-Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'verified', \App\Http\Middleware\AdminMiddleware::class])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard', ['user' => auth()->user()]);
+    })->name('admin.dashboard');
+    
     Route::get('/contacts', function () {
         return Inertia::render('Admin/Contacts');
     })->name('admin.contacts');

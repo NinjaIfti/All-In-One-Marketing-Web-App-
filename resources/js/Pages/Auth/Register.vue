@@ -66,10 +66,13 @@ const submit = () => {
     phone: form.phone
   }));
   
+  // Show success message briefly and then redirect
+  submissionSuccess.value = true;
+  
   // After a brief delay, redirect to the registration page
   setTimeout(() => {
-    window.location.href = '/register';
-  }, 800);
+    router.visit(route('register'));
+  }, 1500);
 };
 </script>
 
@@ -92,13 +95,10 @@ const submit = () => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <h3 class="text-2xl font-bold text-green-800 mb-2">Thank You!</h3>
-            <p class="text-green-700 mb-4">Your information has been submitted successfully. We'll be in touch soon!</p>
-            <button 
-              @click="submissionSuccess = false" 
-              class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
-            >
-              Submit Another
-            </button>
+            <p class="text-green-700 mb-4">Your information has been received. Redirecting you to complete your registration...</p>
+            <div class="flex justify-center">
+              <div class="animate-spin h-6 w-6 border-4 border-green-600 rounded-full border-t-transparent"></div>
+            </div>
           </div>
           
           <!-- Form -->
@@ -207,11 +207,9 @@ const submit = () => {
           <div class="text-center text-xs text-gray-500 mt-12">
             <p>PB&J Solutions</p>
             <div class="mt-2 flex justify-center space-x-4">
-              <a href="#" class="text-gray-500 hover:text-purple-500">Privacy Policy</a>
+              <Link :href="route('privacy')" class="text-gray-500 hover:text-purple-500">Privacy Policy</Link>
               <span>|</span>
-              <a href="#" class="text-gray-500 hover:text-purple-500">Terms & Conditions</a>
-              <span>|</span>
-              <a href="#" class="text-gray-500 hover:text-purple-500">Refund Policy</a>
+              <Link :href="route('terms')" class="text-gray-500 hover:text-purple-500">Terms & Conditions</Link>
             </div>
           </div>
         </div>
