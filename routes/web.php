@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\CampaignController;
+use App\Http\Controllers\User\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -57,21 +60,30 @@ Route::get('/custom-register', function () {
 
 // User Routes (protected)
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('user/Dashboard', ['user' => auth()->user()]);
-    })->name('user.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
     
-    Route::get('/campaigns', function () {
-        return Inertia::render('user/Campaigns');
-    })->name('user.campaigns');
+    // Campaign routes
+    Route::get('/campaigns', [CampaignController::class, 'index'])->name('user.campaigns');
+    Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('user.campaigns.create');
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('user.campaigns.store');
+    Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('user.campaigns.show');
+    Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('user.campaigns.edit');
+    Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('user.campaigns.update');
+    Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('user.campaigns.destroy');
+    Route::post('/campaigns/{id}/send', [CampaignController::class, 'send'])->name('user.campaigns.send');
+    Route::post('/campaigns/{id}/schedule', [CampaignController::class, 'schedule'])->name('user.campaigns.schedule');
+    Route::post('/campaigns/{id}/cancel', [CampaignController::class, 'cancel'])->name('user.campaigns.cancel');
     
-    Route::get('/campaigns/create', function () {
-        return Inertia::render('user/CreateCampaign');
-    })->name('user.campaigns.create');
-    
-    Route::get('/contacts', function () {
-        return Inertia::render('user/Contacts');
-    })->name('user.contacts');
+    // Contact routes
+    Route::get('/contacts', [ContactController::class, 'index'])->name('user.contacts');
+    Route::get('/contacts/create', [ContactController::class, 'create'])->name('user.contacts.create');
+    Route::post('/contacts', [ContactController::class, 'store'])->name('user.contacts.store');
+    Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('user.contacts.edit');
+    Route::put('/contacts/{id}', [ContactController::class, 'update'])->name('user.contacts.update');
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('user.contacts.destroy');
+    Route::post('/contacts/import', [ContactController::class, 'import'])->name('user.contacts.import');
+    Route::delete('/contacts/bulk-delete', [ContactController::class, 'bulkDelete'])->name('user.contacts.bulk-delete');
+    Route::patch('/contacts/bulk-status', [ContactController::class, 'bulkStatus'])->name('user.contacts.bulk-status');
     
     Route::get('/analytics', function () {
         return Inertia::render('user/Analytics');

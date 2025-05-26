@@ -1,74 +1,16 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import UserLayout from '@/Layouts/User/UserLayout.vue';
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const props = defineProps({
   user: Object,
+  stats: Array,
+  campaigns: Array,
 });
 
-// User stats
-const stats = ref([
-  { 
-    name: 'Email Campaigns', 
-    value: '5', 
-    icon: 'mail',
-    color: 'bg-gradient-to-br from-purple-500 to-purple-600',
-    iconBg: 'bg-purple-100'
-  },
-  { 
-    name: 'Subscribers', 
-    value: '142', 
-    icon: 'users',
-    color: 'bg-gradient-to-br from-blue-500 to-blue-600',
-    iconBg: 'bg-blue-100'
-  },
-  { 
-    name: 'Open Rate', 
-    value: '38.2%', 
-    icon: 'percent',
-    color: 'bg-gradient-to-br from-green-500 to-green-600',
-    iconBg: 'bg-green-100'
-  },
-  { 
-    name: 'Click Rate', 
-    value: '12.5%', 
-    icon: 'mouse-pointer',
-    color: 'bg-gradient-to-br from-orange-500 to-orange-600',
-    iconBg: 'bg-orange-100'
-  },
-]);
-
-// Recent campaigns
-const campaigns = ref([
-  { 
-    id: 1, 
-    name: 'Weekly Newsletter', 
-    sent: '125', 
-    opens: '54',
-    clicks: '18',
-    date: 'May 15, 2025'
-  },
-  { 
-    id: 2, 
-    name: 'Product Update', 
-    sent: '98', 
-    opens: '42',
-    clicks: '21',
-    date: 'May 8, 2025'
-  },
-  { 
-    id: 3, 
-    name: 'Special Offer', 
-    sent: '142', 
-    opens: '86',
-    clicks: '35',
-    date: 'Apr 29, 2025'
-  },
-]);
-
 // Quick actions
-const quickActions = ref([
+const quickActions = [
   { 
     name: 'New Campaign', 
     icon: 'mail-plus',
@@ -93,7 +35,7 @@ const quickActions = ref([
     color: 'bg-orange-500',
     route: 'user.support'
   },
-]);
+];
 
 const getIcon = (iconType) => {
   switch(iconType) {
@@ -150,21 +92,21 @@ onMounted(() => {
   <Head title="Dashboard | PB&J Solutions" />
 
   <UserLayout>
-    <div class="py-6">
+    <div class="py-6 w-full">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8 flex justify-between items-center">
-            <div>
+          <div>
             <h1 class="text-3xl font-bold text-purple-900">Welcome back, {{ props.user?.name }}</h1>
             <p class="mt-1 text-gray-600">Here's what's happening with your campaigns today.</p>
           </div>
           <Link :href="route('user.campaigns.create')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
             New Campaign
           </Link>
-      </div>
+        </div>
 
         <!-- Stats Section -->
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
           <div v-for="(stat, index) in stats" :key="index" 
                class="rounded-lg shadow-md overflow-hidden">
             <div class="p-5 flex items-center">
@@ -179,7 +121,7 @@ onMounted(() => {
                   <dd>
                     <div class="text-2xl font-bold text-purple-900">
                       {{ stat.value }}
-              </div>
+                    </div>
                   </dd>
                 </dl>
               </div>
@@ -190,67 +132,67 @@ onMounted(() => {
 
         <!-- Quick Actions -->
         <h2 class="text-xl font-semibold text-purple-900 mt-8 mb-4">Quick Actions</h2>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
           <Link v-for="action in quickActions" :key="action.name"
                 :href="route(action.route)"
                 class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
             <div class="flex items-center">
               <div :class="[action.color, 'p-3 rounded-full text-white']" v-html="getIcon(action.icon)"></div>
               <h3 class="ml-4 text-lg font-medium text-gray-900">{{ action.name }}</h3>
-          </div>
+            </div>
           </Link>
-      </div>
+        </div>
 
         <!-- Recent Campaigns -->
         <h2 class="text-xl font-semibold text-purple-900 mt-8 mb-4">Recent Campaigns</h2>
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Campaign
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Sent
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Opens
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Clicks
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="campaign in campaigns" :key="campaign.id" class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-purple-800">{{ campaign.name }}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{ campaign.sent }}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{ campaign.opens }}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{ campaign.clicks }}</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ campaign.date }}
-                </td>
+          <div class="overflow-x-auto w-full">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Campaign
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Sent
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Opens
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Clicks
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Date
+                    </th>
                 </tr>
-                <tr v-if="campaigns.length === 0">
-                  <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
-                    No campaigns found. Create your first campaign to get started.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                  <tr v-for="campaign in campaigns" :key="campaign.id" class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="text-sm font-medium text-purple-800">{{ campaign.name }}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="text-sm text-gray-900">{{ campaign.sent }}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="text-sm text-gray-900">{{ campaign.opens }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">{{ campaign.clicks }}</div>
+                      </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {{ campaign.date }}
+                  </td>
+                  </tr>
+                  <tr v-if="campaigns.length === 0">
+                    <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                      No campaigns found. Create your first campaign to get started.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
             <Link :href="route('user.campaigns')" class="text-sm font-medium text-purple-600 hover:text-purple-500">
               View All Campaigns <span aria-hidden="true">&rarr;</span>
@@ -266,11 +208,11 @@ onMounted(() => {
             <div class="bg-white bg-opacity-10 p-4 rounded-lg">
               <h3 class="font-medium text-lg mb-1">Email Best Practices</h3>
               <p class="text-sm text-purple-100">Learn how to improve your open rates</p>
-          </div>
+            </div>
             <div class="bg-white bg-opacity-10 p-4 rounded-lg">
               <h3 class="font-medium text-lg mb-1">Segmentation Guide</h3>
               <p class="text-sm text-purple-100">Target your audience more effectively</p>
-                </div>
+            </div>
             <div class="bg-white bg-opacity-10 p-4 rounded-lg">
               <h3 class="font-medium text-lg mb-1">Analytics 101</h3>
               <p class="text-sm text-purple-100">Make data-driven marketing decisions</p>

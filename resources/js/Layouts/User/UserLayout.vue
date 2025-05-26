@@ -56,7 +56,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen bg-gray-100 flex">
     <!-- Mobile menu -->
     <div :class="{'block': showingMobileMenu, 'hidden': ! showingMobileMenu}" class="fixed inset-0 bg-gray-600 bg-opacity-75 z-20 lg:hidden" @click="showingMobileMenu = false"></div>
 
@@ -88,7 +88,7 @@ const logout = () => {
       </div>
     </div>
 
-    <div class="flex-1 flex flex-col lg:pl-64">
+    <div class="flex-1 flex flex-col">
       <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
         <button @click="showingMobileMenu = true" type="button" class="px-4 lg:hidden text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
           <span class="sr-only">Open sidebar</span>
