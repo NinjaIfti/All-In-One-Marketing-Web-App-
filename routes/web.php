@@ -85,17 +85,22 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::delete('/contacts/bulk-delete', [ContactController::class, 'bulkDelete'])->name('user.contacts.bulk-delete');
     Route::patch('/contacts/bulk-status', [ContactController::class, 'bulkStatus'])->name('user.contacts.bulk-status');
     
-    Route::get('/analytics', function () {
-        return Inertia::render('user/Analytics');
-    })->name('user.analytics');
+    // Analytics routes
+    Route::get('/analytics', [App\Http\Controllers\User\AnalyticsController::class, 'index'])->name('user.analytics');
+    Route::get('/analytics/activity-data', [App\Http\Controllers\User\AnalyticsController::class, 'getActivityData'])->name('user.analytics.activity-data');
+    Route::get('/analytics/login-data', [App\Http\Controllers\User\AnalyticsController::class, 'getLoginData'])->name('user.analytics.login-data');
     
-    Route::get('/automation', function () {
-        return Inertia::render('user/Automation');
-    })->name('user.automation');
+    // Automation routes
+    Route::get('/automation', [App\Http\Controllers\User\AutomationController::class, 'index'])->name('user.automation');
+    Route::resource('automations', App\Http\Controllers\User\AutomationController::class, ['as' => 'user']);
+    Route::put('/automations/{id}/status', [App\Http\Controllers\User\AutomationController::class, 'changeStatus'])->name('user.automations.status');
     
-    Route::get('/settings', function () {
-        return Inertia::render('user/Settings');
-    })->name('user.settings');
+    // Settings routes
+    Route::get('/settings', [App\Http\Controllers\User\SettingsController::class, 'index'])->name('user.settings');
+    Route::put('/settings/general', [App\Http\Controllers\User\SettingsController::class, 'updateGeneralSettings'])->name('user.settings.general');
+    Route::put('/settings/email', [App\Http\Controllers\User\SettingsController::class, 'updateEmailSettings'])->name('user.settings.email');
+    Route::put('/settings/campaign', [App\Http\Controllers\User\SettingsController::class, 'updateCampaignSettings'])->name('user.settings.campaign');
+    Route::post('/settings/reset', [App\Http\Controllers\User\SettingsController::class, 'resetSettings'])->name('user.settings.reset');
     
     Route::get('/support', function () {
         return Inertia::render('user/Support');

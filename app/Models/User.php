@@ -73,4 +73,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscriber::class);
     }
+    
+    /**
+     * Get the analytics records for the user.
+     */
+    public function analytics(): HasMany
+    {
+        return $this->hasMany(UserAnalytics::class);
+    }
+    
+    /**
+     * Get the automations for the user.
+     */
+    public function automations(): HasMany
+    {
+        return $this->hasMany(Automation::class);
+    }
+
+    /**
+     * Get the settings for the user.
+     */
+    public function settings(): HasMany
+    {
+        return $this->hasMany(UserSetting::class);
+    }
 }
