@@ -97,4 +97,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserSetting::class);
     }
+
+    /**
+     * Get user conversations (as a regular user)
+     */
+    public function userConversations(): HasMany
+    {
+        return $this->hasMany(Conversation::class, 'user_id');
+    }
+
+    /**
+     * Get admin conversations (as an admin)
+     */
+    public function adminConversations(): HasMany
+    {
+        return $this->hasMany(Conversation::class, 'admin_id');
+    }
+
+    /**
+     * Get all conversations (both user and admin roles)
+     */
+    public function allConversations()
+    {
+        if ($this->isAdmin()) {
+            return $this->adminConversations();
+        }
+        return $this->userConversations();
+    }
+
+    /**
+     * Get messages sent by the user
+     */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
 }

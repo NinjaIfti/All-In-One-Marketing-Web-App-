@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\ContactController;
+use App\Http\Controllers\User\ChatController as UserChatController;
+use App\Http\Controllers\Admin\ChatController as AdminChatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -109,6 +111,12 @@ Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
     Route::get('/resources', function () {
         return Inertia::render('user/Resources');
     })->name('user.resources');
+    
+    // Chat routes for users
+    Route::get('/chat', [UserChatController::class, 'index'])->name('user.chat.index');
+    Route::get('/chat/{id}', [UserChatController::class, 'show'])->name('user.chat.show');
+    Route::post('/chat', [UserChatController::class, 'store'])->name('user.chat.store');
+    Route::post('/chat/{id}/messages', [UserChatController::class, 'sendMessage'])->name('user.chat.message');
 });
 
 // Admin Routes (protected)
@@ -140,6 +148,14 @@ Route::middleware(['auth', 'verified', \App\Http\Middleware\AdminMiddleware::cla
     Route::get('/settings', function () {
         return Inertia::render('Admin/Settings');
     })->name('admin.settings');
+    
+    // Chat routes for admins
+    Route::get('/chat', [AdminChatController::class, 'index'])->name('admin.chat.index');
+    Route::get('/chat/{id}', [AdminChatController::class, 'show'])->name('admin.chat.show');
+    Route::post('/chat/{id}/messages', [AdminChatController::class, 'sendMessage'])->name('admin.chat.message');
+    Route::patch('/chat/{id}/status', [AdminChatController::class, 'changeStatus'])->name('admin.chat.status');
+    Route::patch('/chat/{id}/reassign', [AdminChatController::class, 'reassign'])->name('admin.chat.reassign');
+    Route::get('/chat/admins/list', [AdminChatController::class, 'getAdmins'])->name('admin.chat.admins');
 });
 
 // User Profile Routes
